@@ -1,5 +1,4 @@
 from datetime import date
-from importlib.resources import open_binary
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
