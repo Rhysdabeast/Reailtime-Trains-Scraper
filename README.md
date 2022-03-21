@@ -6,6 +6,7 @@ Packages you need in order to run the program: <br />
 Requests - https://pypi.org/project/requests/ <br />
 Beautifulsoup4 - https://pypi.org/project/beautifulsoup4/ <br />
 Pandas - https://pypi.org/project/pandas/ <br />
+openpyxl - https://pypi.org/project/openpyxl/ <br />
 
 # Running the Program
 First of all clone this repository or download it in ZIP format. 
