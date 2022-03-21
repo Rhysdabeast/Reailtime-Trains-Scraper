@@ -10,7 +10,7 @@ openpyxl - https://pypi.org/project/openpyxl/ <br />
 
 # Running the Program
 First of all clone this repository or download it in ZIP format. 
-From the project folder you can open the command prompt and type: <br />
+From the project folder you can open the command prompt for Windows or Terminal for Mac and type: <br />
 <code>python RTT_Scraper_Main.py</code> <br />
 <br />
 ![RTT CMD Example](https://user-images.githubusercontent.com/86208560/159197557-c8fec7dd-f97f-4284-af71-f4675ae91545.gif)<br />
