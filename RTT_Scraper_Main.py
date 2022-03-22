@@ -43,10 +43,21 @@ for x in range(0, len(links)):
     page_links = requests.get(formatted_link)
     page_soup = BeautifulSoup(page_links.content, 'html.parser')
     header = page_soup.find(class_='header')
+    apostrophe = "'"
+    header_search = header.text
+    if apostrophe in header_search:
+        header = header_search.replace("'", "")
+        contained_apostrophe = True
+    else:
+        contained_apostrophe = False
+        pass
     results = page_soup.find(class_='allocation')
     if results == None:
         allox.append("No allox")
-        headers.append(header.text)
+        if contained_apostrophe is False:
+            headers.append(header.text)
+        elif contained_apostrophe is True:
+            headers.append(header)
     else:
         changes = len(results.find_all("ul"))
         if changes == 0:
@@ -93,9 +104,14 @@ def insert():
 def replace():
     y = 1
     for x in range(0 , len(links)):
-        sql = "UPDATE " + table_name + " SET allox = '" + allox[x] + "' WHERE id = " + str(y)
+        sql_update_header = "UPDATE " + table_name + " SET service = '" + headers[x] + "' WHERE id = " + str(y)
         with con:
-            con.execute(sql)
+            con.execute(sql_update_header)
+            
+        sql_update_allox = "UPDATE " + table_name + " SET allox = '" + allox[x] + "' WHERE id = " + str(y)
+        with con:
+            con.execute(sql_update_allox)
+
         y += 1
 
 tab_sql = ("SELECT name FROM sqlite_master WHERE type='table' AND name='" + table_name + "'")
