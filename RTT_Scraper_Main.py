@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import sqlite3 as sl
+import asyncio
 
 start_time = timeit.default_timer()
 links = []
@@ -40,39 +41,41 @@ for a in soup.find_all('a', href=True):
 del links[:n]
 del links[-m:]
 
-for x in range(0, len(links)):
-    formatted_link = ("https://www.realtimetrains.co.uk" + links[x])
-    page_links = requests.get(formatted_link)
-    page_soup = BeautifulSoup(page_links.content, 'html.parser')
-    header = page_soup.find(class_='header')
-    apostrophe = "'"
-    header_search = header.text
-    if apostrophe in header_search:
-        header = header_search.replace("'", "")
-        contained_apostrophe = True
-    else:
-        contained_apostrophe = False
-        pass
-    results = page_soup.find(class_='allocation')
-    if results == None:
-        allox.append("No allox")
-        if contained_apostrophe is False:
-            headers.append(header.text)
-        elif contained_apostrophe is True:
-            headers.append(header)
-    else:
-        changes = len(results.find_all("ul"))
-        if changes == 0:
-            allox.append(results.string)
-            headers.append(header.text)
-        elif changes == 1:
-            for p in results.find_all('li'):
-                allox_more.append(p.text)
-            joined = (" ".join(allox_more))
-            allox.append(joined)
-            headers.append(header.text)
-            allox_more.clear()
+async def scraper():
+    for x in range(0, len(links)):
+        formatted_link = ("https://www.realtimetrains.co.uk" + links[x])
+        page_links = requests.get(formatted_link)
+        page_soup = BeautifulSoup(page_links.content, 'html.parser')
+        header = page_soup.find(class_='header')
+        apostrophe = "'"
+        header_search = header.text
+        if apostrophe in header_search:
+            header = header_search.replace("'", "")
+            contained_apostrophe = True
+        else:
+            contained_apostrophe = False
+            pass
+        results = page_soup.find(class_='allocation')
+        if results == None:
+            allox.append("No allox")
+            if contained_apostrophe is False:
+                headers.append(header.text)
+            elif contained_apostrophe is True:
+                headers.append(header)
+        else:
+            changes = len(results.find_all("ul"))
+            if changes == 0:
+                allox.append(results.string)
+                headers.append(header.text)
+            elif changes == 1:
+                for p in results.find_all('li'):
+                    allox_more.append(p.text)
+                joined = (" ".join(allox_more))
+                allox.append(joined)
+                headers.append(header.text)
+                allox_more.clear()
 
+asyncio.run(scraper())
 
 con = sl.connect("Databases/" + user_station + '.db')
 cursor = con.cursor()
