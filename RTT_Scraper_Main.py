@@ -7,7 +7,7 @@ import sqlite3 as sl
 import asyncio
 from tqdm import tqdm
 
-def opening (): #Inputs name, address, phone number and amount they are investing
+def opening ():
     print('Welcome to RealTimeTrains scraper')
 
 def options ():
