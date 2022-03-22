@@ -7,6 +7,7 @@ Requests - https://pypi.org/project/requests/ <br />
 Beautifulsoup4 - https://pypi.org/project/beautifulsoup4/ <br />
 Pandas - https://pypi.org/project/pandas/ <br />
 openpyxl - https://pypi.org/project/openpyxl/ <br />
+tqdm - https://pypi.org/project/tqdm/
 
 # Running the Program
 First of all clone this repository or download it in ZIP format. 
