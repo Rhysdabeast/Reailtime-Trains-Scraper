@@ -7,7 +7,25 @@ import sqlite3 as sl
 import asyncio
 from tqdm import tqdm
 
+def opening (): #Inputs name, address, phone number and amount they are investing
+    print('Welcome to RealTimeTrains scraper')
+
+def options ():
+    print('Option 1 = Enter Station Name ¦ Option 2 = Exit')
+    option = input() 
+
+    while option != '1' and option != '2': 
+        print('Option 1 - Enter Station name ¦ Option 2 - Exit')
+        option = input()
+        
+    if option == '1': 
+        pass
+    else:
+        exit() 
+
 start_time = timeit.default_timer()
+opening()
+options()
 links = []
 headers = []
 allox = []
@@ -28,6 +46,8 @@ d = today.strftime("%Y-%m-%d")
 def no_toc():
     global URL
     URL = "https://www.realtimetrains.co.uk/search/detailed/gb-nr:" + c + "/" + d + "/0000-2359?stp=WVS&show=all&order=wtt"
+
+
 
 no_toc()
 
@@ -145,3 +165,5 @@ else:
 
 stop_time = str(int(timeit.default_timer() - start_time) / 60)[:4]
 print("Completed in " + stop_time + " Minutes")
+
+options()
