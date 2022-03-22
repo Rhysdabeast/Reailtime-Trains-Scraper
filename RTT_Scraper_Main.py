@@ -1,9 +1,11 @@
 from datetime import date
+import timeit
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import sqlite3 as sl
 
+start_time = timeit.default_timer()
 links = []
 headers = []
 allox = []
@@ -124,3 +126,6 @@ if table_result:
 else:
     con.execute("CREATE TABLE " + table_name + " (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, service TEXT, allox TEXT, date TEXT)")
     insert()
+
+stop_time = str(int(timeit.default_timer() - start_time) / 60)[:4]
+print("Completed in " + stop_time + " Minutes")
