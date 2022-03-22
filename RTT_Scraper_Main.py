@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import sqlite3 as sl
 import asyncio
+from tqdm import tqdm
 
 start_time = timeit.default_timer()
 links = []
@@ -42,7 +43,8 @@ del links[:n]
 del links[-m:]
 
 async def scraper():
-    for x in range(0, len(links)):
+    print("Getting information...")
+    for x in tqdm(range(0, len(links))):
         formatted_link = ("https://www.realtimetrains.co.uk" + links[x])
         page_links = requests.get(formatted_link)
         page_soup = BeautifulSoup(page_links.content, 'html.parser')
@@ -98,7 +100,8 @@ else:
     table_name = user_station + "_" + table_date
 
 def insert():
-    for x in range(0, len(links)):
+    print("Adding data to " + user_station + ".db")
+    for x in tqdm(range(0, len(links))):
         sql = "INSERT INTO " + table_name + " (service, allox, date) values(?, ?, ?)"
         data = [
             (headers[x], allox[x], d)
@@ -107,8 +110,9 @@ def insert():
             con.executemany(sql, data)
 
 def replace():
+    print("Updating data in " + user_station + ".db")
     y = 1
-    for x in range(0 , len(links)):
+    for x in tqdm(range(0, len(links))):
         sql_update_header = "UPDATE " + table_name + " SET service = '" + headers[x] + "' WHERE id = " + str(y)
         with con:
             con.execute(sql_update_header)
