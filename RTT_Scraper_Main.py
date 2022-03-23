@@ -21,7 +21,7 @@ def options ():
     if option == '1': 
         pass
     else:
-        exit() 
+        exit()
 
 start_time = timeit.default_timer()
 opening()
@@ -165,5 +165,3 @@ else:
 
 stop_time = str(int(timeit.default_timer() - start_time) / 60)[:4]
 print("Completed in " + stop_time + " Minutes")
-
-options()
