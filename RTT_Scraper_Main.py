@@ -1,5 +1,4 @@
 from datetime import date
-import timeit
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -7,24 +6,21 @@ import sqlite3 as sl
 import asyncio
 from tqdm import tqdm
 
-def opening ():
-    print('Welcome to RealTimeTrains scraper')
-
 def options ():
-    print('Option 1 = Enter Station Name ¦ Option 2 = Exit')
+    print('Add data to databases = 1 | Query Databases = 2 | Exit = 3 ')
     option = input() 
 
-    while option != '1' and option != '2': 
-        print('Option 1 - Enter Station name ¦ Option 2 - Exit')
+    while option != '1' and option != '2' and option != '3': 
+        print('Add data to databases = 1 | Query Databases = 2 | Exit = 3 ')
         option = input()
         
     if option == '1': 
         pass
+    elif option == '2':
+        from DB_Query import db
     else:
         exit()
 
-start_time = timeit.default_timer()
-opening()
 options()
 links = []
 headers = []
@@ -163,5 +159,4 @@ else:
     con.execute("CREATE TABLE " + table_name + " (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, service TEXT, allox TEXT, date TEXT)")
     insert()
 
-stop_time = str(int(timeit.default_timer() - start_time) / 60)[:4]
-print("Completed in " + stop_time + " Minutes")
+options()
