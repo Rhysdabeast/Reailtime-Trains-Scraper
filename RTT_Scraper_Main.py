@@ -136,17 +136,21 @@ def insert():
 
 def replace():
     print("Updating data in " + user_station + ".db")
-    y = 1
-    for x in tqdm(range(0, len(links))):
-        sql_update_header = "UPDATE " + table_name + " SET service = '" + headers[x] + "' WHERE id = " + str(y)
-        with con:
-            con.execute(sql_update_header)
+    sql_clear_table = "DELETE FROM " + table_name
+    with con:
+            con.execute(sql_clear_table)
             
-        sql_update_allox = "UPDATE " + table_name + " SET allox = '" + allox[x] + "' WHERE id = " + str(y)
+    sql_reset_id = "UPDATE sqlite_sequence SET seq='0' WHERE name= '" + table_name + "'" 
+    with con:
+        con.execute(sql_reset_id)
+    for x in tqdm(range(0, len(links))):
+        sql_insert = "INSERT INTO " + table_name + " (service, allox, date) values(?, ?, ?)"
+        data = [
+            (headers[x], allox[x], d)
+        ]
         with con:
-            con.execute(sql_update_allox)
-
-        y += 1
+            con.executemany(sql_insert, data)
+        
 
 tab_sql = ("SELECT name FROM sqlite_master WHERE type='table' AND name='" + table_name + "'")
 
