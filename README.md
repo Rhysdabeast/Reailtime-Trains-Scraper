@@ -13,24 +13,25 @@ tqdm - https://pypi.org/project/tqdm/
 First of all clone this repository or download it in ZIP format. 
 From the project folder you can open the command prompt for Windows or Terminal for Mac and type: <br />
 <code>python RTT_Scraper_Main.py</code> <br />
-<br />
-![RTT CMD Example](https://user-images.githubusercontent.com/86208560/159614577-6d82d846-1c9e-40d5-ae91-c731959f882c.gif)<br />
 
 Or you can open the project folder in Visual Studio Code or your prefered IDE and run the program through that:<br />
 https://code.visualstudio.com/
 
 # Using the Program
 
-The program is very simple to use, when you get the program running it will ask for you to enter either 1 or 2. 1 will ask you for a station name which you would like to scrape services from. 2 will exit the program. To make sure you enter the correct name look inside the excel spreadsheet and copy the station name from that if necessary. This would be useful if you wanted to get services from Acton Bridge for example, if Acton Bridge was inputted a database file would be created but with no data inside of it. Instead you would have to input Acton Bridge (Cheshire) as that is what corresponds to the correct CRS code for Acton Bridge. <br />
+The program is very simple to use, when you get the program running it will ask for you to enter either 1, 2 or 3. 1 will ask you for a station name which you would like to scrape services from. 2 will allow you to query your databases within the databases folder, you can either search by Unit/Loco number or by service detail e.g 390156 or if "Crewe" was inputted all services which started or ended at Crewe would be listed. 3 will exit the program. To make sure you enter the correct name look inside the excel spreadsheet and copy the station name from that if necessary. This would be useful if you wanted to get services from Acton Bridge for example, if Acton Bridge was inputted a database file would be created but with no data inside of it. Instead you would have to input Acton Bridge (Cheshire) as that is what corresponds to the correct CRS code for Acton Bridge. <br />
 
-When a valid station name is inputted the program will run through and get the service details and allocation if available from every service at that given location. This is then exported to a database file.<br />
 Details about allocations and which TOC's support this can be found here: https://www.realtimetrains.co.uk/about/knowyourtrain/<br >
 <br />
-![RTT CMD Example Full](https://user-images.githubusercontent.com/86208560/159616003-62f3d69a-2e39-4c1d-947d-ce40d05e9c6c.gif)
+<code>Adding Data to Database Example:</code><br />
+![Option 1 Example](https://user-images.githubusercontent.com/86208560/160248237-469917d9-af2a-4dd3-9d75-ac6e400b10ed.gif)<br />
+<code>Querying Database Example:</code><br />
+![Option 2 Example](https://user-images.githubusercontent.com/86208560/160248452-fe207fed-729c-441a-9411-9a9db3dd18a3.gif)
+
 
 
 # Viewing the results
-After the program finishes the results can be found in the database file it creates for the corresponding station you entered. These can be found in the <code>Databases</code> folder within the project folder. The file should be called <code>The Station Name you inputted.db</code><br />
+After the program finishes the results can be found in the database file it creates for the corresponding station you entered. These can be found in the <code>Databases</code> folder within the project folder or you can query the database within the program itself. The file should be called <code>The Station Name you inputted.db</code><br />
 To view the data you can use DB Browser for SQLite which is free to download from https://sqlitebrowser.org/dl/. <br />
 Inside the database it should create a table called <code>The Station Name you inputted_Year_Month_Day</code>. In the table it will list all the services and allocations at that Station on that particular date.
 <br />
