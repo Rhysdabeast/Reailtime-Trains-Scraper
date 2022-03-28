@@ -76,6 +76,7 @@ def main():
         async def find_header():
             global header
             header = page_soup.find(class_='header')
+            global apostrophe
             apostrophe = "'"
             header_search = header.text
             if apostrophe in header_search:
@@ -109,17 +110,39 @@ def main():
         con = sl.connect("Databases/" + user_station + '.db')
         cursor = con.cursor()
 
-        res = " " in user_station
+        space = " " in user_station
+        open_b = "(" in user_station
+        close_b = ")" in user_station
+        dash = "-" in user_station
+        apos = "'" in user_station
+        andsymbol = "&" in user_station
 
-        if res is True:
+        if space is True and open_b is False and close_b is False and dash is False and apos is False and andsymbol is False:
             table_station = user_station.replace(" ", "_")
-            open_b = "("
-            close_b = ")"
-            if open_b and close_b in table_station:
-                table_station = table_station.replace("(", "")
-                table_station = table_station.replace(")", "")
-            else:
-                pass
+            table_date = d.replace("-", "_")
+            table_name = table_station + "_" + table_date
+        elif space is True and open_b is True and close_b is True and dash is False and apos is False and andsymbol is False:
+            table_station = user_station.replace(" ", "_").replace("(", "").replace(")", "")
+            table_date = d.replace("-", "_")
+            table_name = table_station + "_" + table_date
+        elif space is False and open_b is False and close_b is False and dash is True and apos is True and andsymbol is False:
+            table_station = user_station.replace("-", "_").replace("'", "_")
+            table_date = d.replace("-", "_")
+            table_name = table_station + "_" + table_date
+        elif space is False and open_b is False and close_b is False and dash is True and apos is False and andsymbol is False:
+            table_station = user_station.replace("-", "_")
+            table_date = d.replace("-", "_")
+            table_name = table_station + "_" + table_date
+        elif space is True and open_b is False and close_b is False and dash is False and apos is True and andsymbol is True:
+            table_station = user_station.replace("'", "").replace(" ", "_").replace("&", "")
+            table_date = d.replace("-", "_")
+            table_name = table_station + "_" + table_date
+        elif space is True and open_b is False and close_b is False and dash is False and apos is True and andsymbol is False:
+            table_station = user_station.replace(" ", "_").replace("'", "")
+            table_date = d.replace("-", "_")
+            table_name = table_station + "_" + table_date
+        elif space is True and open_b is False and close_b is False and dash is False and apos is False and andsymbol is True:
+            table_station = user_station.replace(" ", "_").replace("&", "")
             table_date = d.replace("-", "_")
             table_name = table_station + "_" + table_date
         else:
